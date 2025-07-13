@@ -51,6 +51,8 @@
 #define PON_DBC_CTL			0x71
 #define  PON_DBC_DELAY_MASK		0x7
 
+#define PMIC_PWRKEY_CLOSE_BRIGHNESS     1
+
 struct pm8941_data {
 	unsigned int	pull_up_bit;
 	unsigned int	status_bit;
@@ -141,12 +143,30 @@ static int pm8941_reboot_notify(struct notifier_block *nb,
 	return NOTIFY_DONE;
 }
 
+typedef int (*mi_display_pwrkey_callback)(int);
+mi_display_pwrkey_callback mi_display_pwrkey_cb = NULL;
+void mi_display_pwrkey_callback_set(mi_display_pwrkey_callback cb)
+{
+	mi_display_pwrkey_cb = cb;
+	printk(KERN_INFO "%s: func %pF is set.\n", __func__, cb);
+	return;
+}
+EXPORT_SYMBOL(mi_display_pwrkey_callback_set);
+
 static irqreturn_t pm8941_pwrkey_irq(int irq, void *_data)
 {
 	struct pm8941_pwrkey *pwrkey = _data;
 	unsigned int sts;
 	int error;
 	u64 elapsed_us;
+
+	if (!strcmp(pwrkey->data->name,"pmic_pwrkey_resin_bark") ||
+		!strcmp(pwrkey->data->name,"pmic_resin_bark")) {
+		if(mi_display_pwrkey_cb != NULL) {
+			mi_display_pwrkey_cb(PMIC_PWRKEY_CLOSE_BRIGHNESS);
+		}
+		return IRQ_HANDLED;
+	}
 
 	if (pwrkey->sw_debounce_time_us) {
 		elapsed_us = ktime_us_delta(ktime_get(),
@@ -471,11 +491,33 @@ static const struct pm8941_data pon_gen3_resin_data = {
 	.has_pon_pbs = true,
 };
 
+static const struct pm8941_data pon_gen3_pwrkey_resin_bark_data = {
+	.status_bit = PON_GEN3_KPDPWR_N_SET,
+	.name = "pmic_pwrkey_resin_bark",
+	.phys = "pmic_pwrkey_resin_bark/input0",
+	.supports_ps_hold_poff_config = false,
+	.supports_debounce_config = false,
+	.needs_sw_debounce = true,
+	.has_pon_pbs = true,
+};
+
+static const struct pm8941_data pon_gen3_resin_bark_data = {
+	.status_bit = PON_GEN3_KPDPWR_N_SET,
+	.name = "pmic_resin_bark",
+	.phys = "pmic_resin_bark/input0",
+	.supports_ps_hold_poff_config = false,
+	.supports_debounce_config = false,
+	.needs_sw_debounce = true,
+	.has_pon_pbs = true,
+};
+
 static const struct of_device_id pm8941_pwr_key_id_table[] = {
 	{ .compatible = "qcom,pm8941-pwrkey", .data = &pwrkey_data },
 	{ .compatible = "qcom,pm8941-resin", .data = &resin_data },
 	{ .compatible = "qcom,pmk8350-pwrkey", .data = &pon_gen3_pwrkey_data },
 	{ .compatible = "qcom,pmk8350-resin", .data = &pon_gen3_resin_data },
+	{ .compatible = "qcom,pmk8350-kpdpwr-resin-bark", .data = &pon_gen3_pwrkey_resin_bark_data },
+	{ .compatible = "qcom,pmk8350-resin-bark", .data = &pon_gen3_resin_bark_data },
 	{ }
 };
 MODULE_DEVICE_TABLE(of, pm8941_pwr_key_id_table);
