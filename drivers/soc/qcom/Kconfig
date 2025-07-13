@@ -1276,6 +1276,11 @@ config QTI_OEMVM_CORE_CTL
 	  API for user to migrate vCPU to current pCPU then yield on current
 	  pCPU. User can also recover vCPU mapping after work is done.
 
+config CPU_FEATURE_ID
+	tristate "Enable CPU Feature ID Proc Interface"
+	help
+	Provide a interface for reading CPU Feature ID
+
 source "drivers/soc/qcom/icnss2/Kconfig"
 source "drivers/soc/qcom/sync_fence/Kconfig"
 source "drivers/soc/qcom/tmecom/Kconfig"
