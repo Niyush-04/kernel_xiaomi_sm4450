@@ -533,4 +533,5 @@ source "drivers/misc/xiaomi_panel_notifier/Kconfig"
 source "drivers/misc/xiaomi_touch_notifier/Kconfig"
 source "drivers/misc/xiaomi_usb_touch_notifier/Kconfig"
 source "drivers/misc/xiaomi_headset_touch_notifier/Kconfig"
+source "drivers/misc/simtray/Kconfig"
 endmenu
