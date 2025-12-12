@@ -715,6 +715,11 @@ static int msm_hsphy_set_power(struct usb_phy *uphy, unsigned int mA)
 	if (phy->cable_connected && (mA == 0))
 		return 0;
 
+	if (mA <= 100) {
+		mA = 500;
+		dev_info(phy->phy.dev, "msm_hsphy_set_power:set curr from USB = 500mA\n");
+	}
+
 	phy->vbus_draw = mA;
 	schedule_work(&phy->vbus_draw_work);
 
