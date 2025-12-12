@@ -531,4 +531,5 @@ source "drivers/misc/hdcp/Kconfig"
 source "drivers/misc/ocp2131_bias/Kconfig"
 source "drivers/misc/xiaomi_panel_notifier/Kconfig"
 source "drivers/misc/xiaomi_touch_notifier/Kconfig"
+source "drivers/misc/xiaomi_usb_touch_notifier/Kconfig"
 endmenu

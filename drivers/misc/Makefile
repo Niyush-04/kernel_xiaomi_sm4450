@@ -70,3 +70,4 @@ obj-y				+= hqsysfs/
 obj-$(CONFIG_OCP2131_BIAS) += ocp2131_bias/
 obj-$(CONFIG_XIAOMI_PANEL_NOTIFIER) += xiaomi_panel_notifier/
 obj-$(CONFIG_XIAOMI_TOUCH_NOTIFIER) += xiaomi_touch_notifier/
+obj-$(CONFIG_XIAOMI_USB_TOUCH_NOTIFIER) += xiaomi_usb_touch_notifier/
