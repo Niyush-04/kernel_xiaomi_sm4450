@@ -529,4 +529,5 @@ source "drivers/misc/uacce/Kconfig"
 source "drivers/misc/hqsysfs/Kconfig"
 source "drivers/misc/hdcp/Kconfig"
 source "drivers/misc/ocp2131_bias/Kconfig"
+source "drivers/misc/xiaomi_panel_notifier/Kconfig"
 endmenu
