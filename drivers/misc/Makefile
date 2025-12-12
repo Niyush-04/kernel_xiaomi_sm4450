@@ -69,3 +69,4 @@ obj-$(CONFIG_KINECTICS_XR_NORDIC) += kxrctrl/
 obj-y				+= hqsysfs/
 obj-$(CONFIG_OCP2131_BIAS) += ocp2131_bias/
 obj-$(CONFIG_XIAOMI_PANEL_NOTIFIER) += xiaomi_panel_notifier/
+obj-$(CONFIG_XIAOMI_TOUCH_NOTIFIER) += xiaomi_touch_notifier/
