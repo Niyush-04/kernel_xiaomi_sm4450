@@ -101,7 +101,7 @@ struct proc_dir_entry *fts_proc_irq_entry = NULL;
 /* N19 code for HQ-351846 by jiyongfei at 2023/3/4 start */
 struct proc_dir_entry *fts_proc_tp_selftest_entry = NULL;
 struct proc_dir_entry *fts_proc_ctp_openshort_test_file = NULL;
-extern fts_test_entry(char*);
+extern int fts_test_entry(char*);
 int fts_factory_test(void);
 /* N19 code for HQ-351846 by jiyongfei at 2023/3/4 end */
 
