@@ -479,7 +479,7 @@ int standard_cmd_flow(unsigned char *write_buf, int write_len,
 	return DS_TRUE;
 }
 
-int ds28e30_read_ROMNO_MANID_HardwareVersion()
+int ds28e30_read_ROMNO_MANID_HardwareVersion(void)
 {
 	/* N19 code for HQ-380271 by p-hankang1 at 20240402 */
 	unsigned char i, temp = 0, buf[10] = {0}, pg = 0, flag;

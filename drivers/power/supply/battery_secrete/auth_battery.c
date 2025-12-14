@@ -55,7 +55,7 @@ static struct auth_data *g_info;
 /* N19A code for HQ-360184 by p-wumingzhu1 at 20240103 */
 static int auth_index = 0;
 
-static int Get_battery_verify_result()
+static int Get_battery_verify_result(void)
 {
   static pm_chg_info_type *pSmemChargerInfo = NULL;
   size_t buf_size_ret = 0;
